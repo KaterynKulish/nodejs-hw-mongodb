@@ -9,7 +9,7 @@ export const addContactSchema = Joi.object({
     'any.required': 'Username is required',
   }),
   phoneNumber: Joi.string().required(),
-  email: Joi.string().required(),
+  email: Joi.string(),
   isFavourite: Joi.boolean(),
   contactType: Joi.string()
     .valid(...typeList)

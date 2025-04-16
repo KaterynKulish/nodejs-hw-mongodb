@@ -6,14 +6,12 @@ const parseBoolean = (value) => {
   return undefined;
 };
 
-export const parseContactsFilterParams = ({ contactType, isFavourite }) => {
-  const parsedContactType = typeList.includes(contactType)
-    ? contactType
-    : undefined;
+export const parseContactsFilterParams = ({ type, isFavourite }) => {
+  const parsedContactType = typeList.includes(type) ? type : undefined;
 
   const parsedIsFavourite = parseBoolean(isFavourite);
   return {
-    contactType: parsedContactType,
+    type: parsedContactType,
     isFavourite: parsedIsFavourite,
   };
 };
