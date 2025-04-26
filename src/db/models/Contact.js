@@ -1,5 +1,4 @@
 import { Schema, model } from 'mongoose';
-import { type } from 'os';
 
 const contactSchema = new Schema(
   {
@@ -23,6 +22,10 @@ const contactSchema = new Schema(
       type: String,
       enum: ['work', 'home', 'personal'],
       default: 'personal',
+      required: true,
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
       required: true,
     },
   },
