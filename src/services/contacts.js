@@ -38,7 +38,8 @@ export const getContacts = async ({
   return { data, page, perPage, totalItems, ...paginationData };
 };
 
-export const getContactsById = (id) => ContactCollection.findOne({ _id: id });
+export const getContactsById = (id, userId) =>
+  ContactCollection.findOne({ _id: id, userId });
 
 export const addContact = (payload) => ContactCollection.create(payload);
 
