@@ -1,12 +1,19 @@
 import { Router } from 'express';
 import { validateBody } from '../utils/validateBody.js';
-import { authLoginSchema, authRegisterSchema } from '../validation/auth.js';
+import {
+  authLoginSchema,
+  authRegisterSchema,
+  requestResetEmailSchema,
+  resetPasswordSchema,
+} from '../validation/auth.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import {
   authLoginController,
   authRegisterController,
   logoutController,
   refreshController,
+  requestResetEmailController,
+  resetPasswordController,
 } from '../controllers/auth.js';
 
 const authRouter = Router();
@@ -15,6 +22,18 @@ authRouter.post(
   '/register',
   validateBody(authRegisterSchema),
   ctrlWrapper(authRegisterController),
+);
+
+authRouter.post(
+  '/send-reset-email',
+  validateBody(requestResetEmailSchema),
+  ctrlWrapper(requestResetEmailController),
+);
+
+authRouter.post(
+  '/reset-password',
+  validateBody(resetPasswordSchema),
+  ctrlWrapper(resetPasswordController),
 );
 
 authRouter.post(
