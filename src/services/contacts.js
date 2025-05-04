@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import { sortList } from '../constants/index.js';
 import ContactCollection from '../db/models/Contact.js';
 import { calcPaginationData } from '../utils/calcPaginationData.js';
@@ -43,14 +44,18 @@ export const getContactsById = (id, userId) =>
 
 export const addContact = (payload) => ContactCollection.create(payload);
 
-export const updateContact = async (_id, payload) => {
-  const data = await ContactCollection.findOneAndUpdate({ _id }, payload, {
-    new: true,
-    // upsert: true,
-  });
+export const updateContact = async (_id, userId, payload) => {
+  const data = await ContactCollection.findOneAndUpdate(
+    { _id, userId },
+    payload,
+    {
+      new: true,
+      // upsert: true,
+    },
+  );
 
   return data;
 };
 
-export const deleteContact = (_id) =>
-  ContactCollection.findOneAndDelete({ _id });
+export const deleteContact = (_id, userId) =>
+  ContactCollection.findOneAndDelete({ _id, userId });

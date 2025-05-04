@@ -12,7 +12,6 @@ export const authenticate = async (req, res, next) => {
     return next(createHttpError(401, 'Header must have type Bearer'));
   }
   const session = await findSession({ accessToken });
-  // console.log('session:', session);
   if (!session) {
     return next(createHttpError(401, 'Session not fount'));
   }
