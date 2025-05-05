@@ -11,6 +11,9 @@ import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { contactSortField } from '../db/models/Contact.js';
 import { parseContactsFilterParams } from '../utils/filters/parseContactsFilterParams.js';
+import { saveFileToUploadsDir } from '../utils/saveFileToUploadsDir.js';
+import { getEnvVar } from '../utils/getEnvVar.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
 export const getContactsController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
@@ -48,8 +51,19 @@ export const getContactsByIdController = async (req, res) => {
 };
 
 export const addContactController = async (req, res) => {
+  let posterUrl;
+  if (req.file) {
+    if (getEnvVar('CLOUDINARY_ENABLE') === 'true') {
+      posterUrl = await saveFileToCloudinary(req.file);
+    } else {
+      posterUrl = await saveFileToUploadsDir(req.file);
+    }
+  }
+
+  console.log(posterUrl);
+
   const { _id: userId } = req.user;
-  const data = await addContact({ ...req.body, userId });
+  const data = await addContact({ ...req.body, posterUrl, userId });
   res.status(201).json({
     status: 201,
     message: 'Successfully created a contact!',
@@ -59,10 +73,18 @@ export const addContactController = async (req, res) => {
 
 export const updateContactsController = async (req, res) => {
   const { id } = req.params;
-
   const userId = req.user._id;
 
-  const data = await updateContact(id, userId, req.body);
+  let posterUrl;
+  if (req.file) {
+    if (getEnvVar('CLOUDINARY_ENABLE') === 'true') {
+      posterUrl = await saveFileToCloudinary(req.file);
+    } else {
+      posterUrl = await saveFileToUploadsDir(req.file);
+    }
+  }
+
+  const data = await updateContact(id, userId, { posterUrl, ...req.body });
 
   if (!data) {
     throw createHttpError(404, 'Contact not found');

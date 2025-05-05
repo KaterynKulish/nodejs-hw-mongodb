@@ -24,6 +24,11 @@ const contactSchema = new Schema(
       default: 'personal',
       required: true,
     },
+    posterUrl: {
+      type: String,
+      required: false,
+      default: null,
+    },
     userId: {
       type: Schema.Types.ObjectId,
       required: true,
