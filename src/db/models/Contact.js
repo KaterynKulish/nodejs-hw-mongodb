@@ -24,7 +24,7 @@ const contactSchema = new Schema(
       default: 'personal',
       required: true,
     },
-    posterUrl: {
+    photo: {
       type: String,
       required: false,
       default: null,
