@@ -44,7 +44,7 @@ export const getContactsById = (id, userId) =>
 
 export const addContact = (payload) => ContactCollection.create(payload);
 
-export const updateContact = async (_id, userId, payload, posterUrl) => {
+export const updateContact = async (_id, userId, payload) => {
   const data = await ContactCollection.findOneAndUpdate(
     { _id, userId },
     payload,
