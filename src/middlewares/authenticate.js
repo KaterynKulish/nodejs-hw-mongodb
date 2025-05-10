@@ -4,7 +4,7 @@ import { findSession, findUser } from '../services/auth.js';
 export const authenticate = async (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization) {
-    return next(createHttpError(401, 'Access token expired'));
+    return next(createHttpError(401, 'Authorization header nissing'));
   }
 
   const [bearer, accessToken] = authorization.split(' ');
