@@ -8,11 +8,11 @@ info:
   description: This is a documentation of contacts app
 tags:
   - name: Contacts
-    description: Operations about users.
+    description: Operations about contacts.
   - name: Auth
     description: Auth operations.
 servers:
-  - url: http://localhost:3001
+  - url: https://localhost:3001
   - url: https://example.com/api/v1
 paths:
   /contacts:
@@ -27,6 +27,24 @@ paths:
       $ref: ../swagger/paths/contacts/{id}/patch.yaml
     delete:
       $ref: ../swagger/paths/contacts/{id}/delete.yaml
+  /auth/register:
+    post:
+      $ref: ../swagger/paths/auth/login.yaml
+  /auth/login:
+    post:
+      $ref: ../swagger/paths/auth/register.yaml
+  /auth/refresh:
+    post:
+      $ref: ../swagger/paths/auth/refresh.yaml
+  /auth/reset-email:
+    post:
+      $ref: ../swagger/paths/auth/reset-email.yaml
+  /auth/reset-pwd:
+    post:
+      $ref: ../swagger/paths/auth/reset-pwd.yaml
+  /auth/logout:
+    post:
+      $ref: ../swagger/paths/auth/logout.yaml
 components:
   securitySchemes:
     bearerAuth:
