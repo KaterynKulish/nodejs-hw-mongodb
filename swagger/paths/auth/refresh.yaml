@@ -45,8 +45,6 @@ responses:
               type: object
               example:
                 { 'accessToken': 'WLV8Slt8fxtu3T8x+oaXD5idb9/TiJsPt6W3YR11' }
-  '400':
-    $ref: '../../components/responses/400.yaml'
   '401':
     $ref: '../../components/responses/401.yaml'
   '404':
